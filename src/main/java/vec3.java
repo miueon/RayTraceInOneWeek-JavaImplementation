@@ -26,10 +26,11 @@ public  class vec3 {
         return e[2];
     }
 
-    public void negative() {
+    public vec3 negative() {
         for (int i = 0; i < e.length; i++) {
             e[i] = -e[i];
         }
+        return this;
     }
 
     public double getByIndex(int i) {
@@ -53,6 +54,10 @@ public  class vec3 {
             e[i] *= value;
         }
         return this;
+    }
+
+    public vec3 minus(vec3 v) {
+        return plus(v.negative());
     }
 
     public vec3 divide(double t)throws IllegalArgumentException {
