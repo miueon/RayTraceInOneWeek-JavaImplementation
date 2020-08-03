@@ -1,3 +1,5 @@
+package raytrace;
+
 public  class vec3 {
 
     public double[] e;
@@ -99,12 +101,21 @@ public  class vec3 {
         return new vec3(u.e[0] * value, u.e[1] * value, u.e[2] * value);
     }
 
+    public static vec3 Negative(final vec3 u) {
+        vec3 temp = new vec3();
+        for (int i = 0; i < temp.e.length; i++) {
+            temp.e[i] = -u.e[i];
+        }
+        return temp;
+    }
+
     public static vec3 Divide(final vec3 u, double value)throws IllegalArgumentException {
         if (value == 0) {
             throw new IllegalArgumentException("divider can't be 0");
         }
         return Multip(u, 1 / value);
     }
+
 
     public static vec3 Unit_vector(vec3 v) {
         return Divide(v, v.length());

@@ -1,3 +1,5 @@
+package raytrace;
+
 public class ray {
     public point3 origin;
     public vec3 direction;
@@ -18,8 +20,6 @@ public class ray {
     }
 
     public point3 at(double t) {
-
-
         return new point3(vec3.Plus(vec3.Multip(direction, t), origin));
     }
 }
