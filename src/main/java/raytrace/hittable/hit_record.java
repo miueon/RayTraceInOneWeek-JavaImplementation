@@ -11,7 +11,8 @@ public class hit_record {
     boolean front_face;
 
     public hit_record() {
-
+        p = new point3(0,0,0);
+        normal = new vec3();
     }
 
     public hit_record(point3 p, vec3 normal, double t) {

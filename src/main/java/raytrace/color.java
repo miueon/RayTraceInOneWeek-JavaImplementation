@@ -53,9 +53,10 @@ public class color extends vec3 {
         var b = this.z();
 
         var scale = 1.0 / samplesPerPixel;
-        r *= scale;
-        g*=scale;
-        b*=scale;
+        // gama correct for gama=2.0
+        r = Math.sqrt(scale * r);
+        g = Math.sqrt(scale * g);
+        b = Math.sqrt(scale * b);
         int factor = 256;
 
         int a = (int) (factor * rtweekend.clamp(r, 0.0, 0.999));

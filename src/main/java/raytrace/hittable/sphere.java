@@ -48,6 +48,8 @@ public class sphere extends hittable {
                 rec.p = r.at(rec.t); // hit point
                // rec.normal = (vec3.Minus(rec.p, center)).divide(radius);
                 // normalization
+
+                // always point to the side of origin
                 vec3 outward_normal = vec3.Minus(rec.p, center).divide(radius);
                 rec.set_face_normal(r, outward_normal);
                 return true;

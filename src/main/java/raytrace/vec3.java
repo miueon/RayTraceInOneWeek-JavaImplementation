@@ -1,5 +1,9 @@
 package raytrace;
 
+import raytrace.hittable.hit_record;
+import raytrace.hittable.sphere;
+import raytrace.util.rtweekend;
+
 public  class vec3 {
 
     public double[] e;
@@ -116,7 +120,42 @@ public  class vec3 {
         return Multip(u, 1 / value);
     }
 
+    public static vec3 random() {
+        return new vec3(rtweekend.random_double(), rtweekend.random_double(), rtweekend.random_double());
+    }
 
+    public static vec3 random(double min, double max) {
+        return new vec3(rtweekend.random_double(min, max),
+                rtweekend.random_double(min, max),
+                rtweekend.random_double(min, max));
+    }
+
+    public static vec3 random_in_unit_sphere() {
+        while (true) {
+            var p = random(-1, 1);
+            if (p.length_squared() >= 1) {
+                continue;
+            }
+
+            return p; // p can be seen as a vector from (0,0,0), but lies on unit sphere
+        }
+    }
+
+    public static vec3 random_unit_vector() {
+        var a = rtweekend.random_double(0, rtweekend.pi * 2);
+        var z = rtweekend.random_double(-1, 1);
+        var r = Math.sqrt(1 - z * z);
+        return new vec3(r * Math.cos(a), r * Math.sin(a), z);
+    }
+
+    public static vec3 random_in_hemisphere(final vec3 normal) {
+        vec3 in_unit_sphere = random_in_unit_sphere();
+        if (in_unit_sphere.dot(normal) > 0.0) {
+            return in_unit_sphere;
+        } else {
+            return in_unit_sphere.negative();
+        }
+    }
     public static vec3 Unit_vector(vec3 v) {
         return Divide(v, v.length());
     }
@@ -125,6 +164,35 @@ public  class vec3 {
         return this.e[0] + " " + this.e[1] + " " + this.e[2];
     }
 
+
+    public static void main(String[] args) {
+        hit_record rec = new hit_record();
+        sphere s = new sphere(new point3(0, 0, -1), 0.5);
+        camera cam = new camera();
+        boolean loop = true;
+        for (int j = 0; j < 255 && loop; j++) {
+            for (int i = 0; i < 400; i++) {
+                double u = j / 255.0;
+                double v = i / 400.0;
+                ray r = cam.get_ray(u, v);
+                if (s.hit(r, 0, rtweekend.infinity, rec)) {
+                    System.out.println(rec.getP());
+                    System.out.println(rec.getNormal());
+                    vec3 tN = vec3.Minus(s.center, rec.getP());
+                    double test = tN.dot(rec.getNormal()) / (tN.length()  * rec.getNormal().length());
+                    
+                    loop = false;
+                    break;
+                }
+            }
+        }
+        vec3 p =random_in_hemisphere(rec.getNormal());
+        System.out.println(p);
+        vec3 target = vec3.Plus(rec.getP(), p);
+        
+        System.out.println(target.minus(rec.getP()));
+
+    }
 
 
 }

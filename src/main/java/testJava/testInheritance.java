@@ -10,14 +10,24 @@ public class testInheritance {
         System.out.println(infinity);
         double test = 10.0;
         System.out.println(test < infinity);
+
+        CC c = new CC();
+        
+        ref(c);
+        System.out.println(c.a);
     }
 
     static void change(AA aa) {
         aa = new CC();
     }
+
+    static void ref(CC cc) {
+        cc.copyfrom(100);
+    }
 }
 
 class AA {
+    int a = 1;
 
     public AA() {
 
@@ -36,5 +46,9 @@ class BB extends AA {
 class CC extends AA {
     public int run() {
         return 30;
+    }
+
+    public void copyfrom(int val) {
+        this.a = val;
     }
 }

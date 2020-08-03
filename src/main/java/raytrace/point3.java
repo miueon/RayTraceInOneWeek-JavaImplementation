@@ -31,13 +31,13 @@ public class point3 extends vec3 {
     }
 
     @Override
-    public vec3 minus(vec3 v) {
+    public point3 minus(vec3 v) {
          super.minus(v);
         return this;
     }
 
     @Override
-    public vec3 divide(double t) throws IllegalArgumentException {
+    public point3 divide(double t) throws IllegalArgumentException {
          super.divide(t);
         return this;
     }
