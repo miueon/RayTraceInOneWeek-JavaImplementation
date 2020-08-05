@@ -64,4 +64,10 @@ public class color extends vec3 {
         int c = (int) (factor * rtweekend.clamp(b, 0.0, 0.999));
         return a + " " + bb + " " + c + "\n";
     }
+
+    public void copyFrom(color v) {
+        for (int i = 0; i < e.length; i++) {
+            e[i] = v.e[i];
+        }
+    }
 }

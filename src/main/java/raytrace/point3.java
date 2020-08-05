@@ -15,7 +15,7 @@ public class point3 extends vec3 {
 
     @Override
     public String toString() {
-        return "point3" + super.toString();
+        return "point3: " + super.toString();
     }
 
     @Override

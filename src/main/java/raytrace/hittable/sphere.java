@@ -7,10 +7,11 @@ import raytrace.vec3;
 public class sphere extends hittable {
     public point3 center;
     public double radius;
-
-    public sphere(point3 center, double radius) {
+    public material material;
+    public sphere(point3 center, double radius, material m) {
         this.center = center;
         this.radius = radius;
+        this.material = m;
     }
 
     public sphere() {
@@ -39,6 +40,7 @@ public class sphere extends hittable {
                // rec.normal = (vec3.Minus(rec.p, center)).divide(radius);
                 vec3 outward_normal = vec3.Minus(rec.p, center).divide(radius);
                 rec.set_face_normal(r, outward_normal);
+                rec.material = this.material;
                 return true;
             }
 
@@ -52,6 +54,7 @@ public class sphere extends hittable {
                 // always point to the side of origin
                 vec3 outward_normal = vec3.Minus(rec.p, center).divide(radius);
                 rec.set_face_normal(r, outward_normal);
+                rec.material = this.material;
                 return true;
             }
         }

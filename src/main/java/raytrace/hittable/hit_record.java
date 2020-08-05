@@ -1,5 +1,6 @@
 package raytrace.hittable;
 
+import raytrace.color;
 import raytrace.point3;
 import raytrace.ray;
 import raytrace.vec3;
@@ -10,9 +11,12 @@ public class hit_record {
     double t;
     boolean front_face;
 
+    public material material;
+
     public hit_record() {
         p = new point3(0,0,0);
         normal = new vec3();
+        material = null;
     }
 
     public hit_record(point3 p, vec3 normal, double t) {
@@ -64,5 +68,6 @@ public class hit_record {
         setP(source.getP());
         setT(source.getT());
         setFront_face(source.isFront_face());
+        this.material = source.material;
     }
 }
